@@ -3,6 +3,12 @@
 """
 This is the views that handle HTTPCookie only authentication
 """
+
+
+REFRESH_TOKEN_LIFETIME = getattr(settings, 'REFRESH_TOKEN_LIFETIME', 7)  # days
+ACCESS_TOKEN_LIFETIME = getattr(settings, 'ACCESS_TOKEN_LIFETIME', 1)  # days
+
+
 class LoginView(generics.GenericAPIView):
     permission_classes = [AllowAny]
 
