@@ -1,5 +1,5 @@
-
 #Views.py
+
 """
 This is the views that handle HTTPCookie only authentication
 """
@@ -40,12 +40,10 @@ class LoginView(generics.GenericAPIView):
             user_refresh_token = RefreshToken.for_user(user)
             response = self.set_tokens_to_cookies(user_refresh_token)
 
-            # Check if the user has created a profile
-            has_profile = UserProfile.objects.filter(user=user).exists()
 
             response_data = {
                 'message': 'Login successful.',
-                'has_profile': has_profile,
+               
             }
 
             response.content = JsonResponse(response_data).content
@@ -155,7 +153,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        # 'accounts.authenticate.CustomAuthentication',
+       
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -165,13 +163,13 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '100/day',
-        'user': '1000/day'
+        'anon': '10/day',
+        'user': '100/day'
     }
 }
 
 INSTALLED_APPS = [
-   ...
+   
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -179,7 +177,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
- ...
+ 
     "corsheaders.middleware.CorsMiddleware",
     'accounts.middleware.TokenMiddleware',
 ]
